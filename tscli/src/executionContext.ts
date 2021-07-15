@@ -5,7 +5,7 @@ export interface ExecutionContext {
 }
 
 const executionContext = {
-    sh: (command: string) => exec(command),
+    sh: (command: string) => exec(command, (_error, stdout, _stderr) => console.log(stdout)),
 };
 
 export default executionContext;
