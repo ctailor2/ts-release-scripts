@@ -27,10 +27,8 @@ jobs:
         with:
           node-version: '14'
 
-      - name: setup cli
+      - name: setup and run cli
         run: |
           cd tscli
           npm install
-
-      - name: run cli
-        run: npm run dev
+          npm run dev
