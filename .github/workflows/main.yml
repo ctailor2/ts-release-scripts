@@ -34,4 +34,4 @@ jobs:
           npm run dev
 
       - name: check results of cli run
-        run: ls repos/hotelops
+        run: tree
