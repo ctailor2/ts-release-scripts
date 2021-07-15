@@ -1,0 +1,3 @@
+repositories:
+  - name: hotelops
+    url: https://github.com/ctailor2/hotelops.git
