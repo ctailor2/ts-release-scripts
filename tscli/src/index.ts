@@ -1,1 +1,4 @@
-console.log('Hello world');
+import execute from "./execute";
+import executionContext from "./executionContext";
+
+execute(executionContext);
