@@ -32,3 +32,6 @@ jobs:
           cd tscli
           npm install
           npm run dev
+
+      - name: check results of cli run
+        run: ls repos/hotelops

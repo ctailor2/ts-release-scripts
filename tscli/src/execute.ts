@@ -20,7 +20,6 @@ const execute: Execute = async (executionContext: ExecutionContext, inventoryFil
     doc.repositories.forEach((repository) => {
         executionContext.git(`clone ${repository.url} repos/${repository.name}`);
     });
-    executionContext.sh('ls repos');
 };
 
 export default execute;
