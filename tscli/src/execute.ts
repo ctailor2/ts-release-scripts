@@ -1,7 +1,6 @@
-import { ExecutionContext } from "./executionContext";
 import fs from 'fs';
 import yaml from 'js-yaml';
-import { parse, urlToHttpOptions } from "url";
+import { ExecutionContext } from "./executionContext";
 
 type Execute = (executionContext: ExecutionContext, inventoryFilePath: string) => void;
 
@@ -14,7 +13,7 @@ interface Repository {
     url: string;
 }
 
-const execute: Execute = async (executionContext: ExecutionContext, inventoryFilePath: string) => {
+const execute: Execute = (executionContext: ExecutionContext, inventoryFilePath: string) => {
     executionContext.sh('echo "Hello World"');
     executionContext.sh('mkdir repos');
     const doc = yaml.load(fs.readFileSync(inventoryFilePath, 'utf8')) as Inventory;
