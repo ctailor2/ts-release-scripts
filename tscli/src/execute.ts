@@ -1,6 +1,7 @@
 import { ExecutionContext } from "./executionContext";
 import fs from 'fs';
 import yaml from 'js-yaml';
+import { parse, urlToHttpOptions } from "url";
 
 type Execute = (executionContext: ExecutionContext, inventoryFilePath: string) => void;
 
@@ -18,7 +19,12 @@ const execute: Execute = async (executionContext: ExecutionContext, inventoryFil
     executionContext.sh('mkdir repos');
     const doc = yaml.load(fs.readFileSync(inventoryFilePath, 'utf8')) as Inventory;
     doc.repositories.forEach((repository) => {
-        executionContext.git(`clone ${repository.url} repos/${repository.name}`);
+        const url = new URL(repository.url)
+        const username = executionContext.env['REPO_USERNAME'];
+        const accessToken = executionContext.env['REPO_ACCESS_TOKEN'];
+        username &&
+            accessToken &&
+            executionContext.git(`clone ${url.protocol}//${username}:${accessToken}@${ url.hostname }${url.pathname} ${ ['repos', repository.name].join('/') }`);
     });
 };
 

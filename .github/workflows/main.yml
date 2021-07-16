@@ -28,6 +28,9 @@ jobs:
           node-version: '14'
 
       - name: setup and run cli
+        env:
+          REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
+          REPO_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         run: |
           cd tscli
           npm install

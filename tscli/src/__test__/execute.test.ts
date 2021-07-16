@@ -18,7 +18,7 @@ describe('executor', () => {
         fs.writeFileSync(filePath, `repositories: []`);
 
         const sh = jest.fn();
-        execute({ sh, git: jest.fn() }, filePath);
+        execute({ sh, git: jest.fn(), env: {} }, filePath);
 
         expect(sh).toHaveBeenCalledWith('echo "Hello World"');
     });
@@ -29,14 +29,17 @@ describe('executor', () => {
         fs.writeFileSync(filePath, `
 repositories:
   - name: someRepoName
-    url: someRepoUrl
+    url: https://hostname/org/repo
         `.trimStart());
 
         const sh = jest.fn();
         const git = jest.fn();
-        execute({ sh, git }, filePath);
+        execute({ sh, git, env: {
+            'REPO_USERNAME': 'someUsername',
+            'REPO_ACCESS_TOKEN': 'someAccessToken'
+        } }, filePath);
 
         expect(sh).toHaveBeenCalledWith("mkdir repos");
-        expect(git).toHaveBeenCalledWith("clone someRepoUrl repos/someRepoName");
+        expect(git).toHaveBeenCalledWith("clone https://someUsername:someAccessToken@hostname/org/repo repos/someRepoName");
     });
 });

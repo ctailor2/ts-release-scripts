@@ -1,9 +1,9 @@
 import { exec } from "child_process";
-import { stderr } from "process";
 
 export interface ExecutionContext {
     sh: (command: string) => void;
     git: (command: string) => void;
+    env: Record<string, string | undefined>;
 }
 
 const sh = (command: string) => exec(command, (error, stdout, stderr) => {
@@ -14,9 +14,10 @@ const sh = (command: string) => exec(command, (error, stdout, stderr) => {
     console.log(stdout);
 });
 
-const executionContext = {
+const executionContext: ExecutionContext = {
     sh,
     git: (command: string) => sh(`git ${command}`),
+    env: process.env
 };
 
 export default executionContext;
