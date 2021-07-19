@@ -1,0 +1,3 @@
+repositories:
+  - name: ts-release-scripts
+    url: https://github.com/ctailor2/ts-release-scripts.git
